@@ -1,0 +1,13 @@
+- name: Copy script to host
+  copy:
+    src: my_script.sh
+    dest: /tmp/my_script.sh
+    mode: '0755'
+
+- name: Run the script
+  shell: /tmp/my_script.sh
+  register: script_output
+
+- name: Display script output
+  debug:
+    var: script_output.stdout

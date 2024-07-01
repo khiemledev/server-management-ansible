@@ -1,0 +1,8 @@
+[gpu_coreteam_hosts]
+gpu_150 ansible_host=192.168.20.156 ansible_user=ansible
+
+[gpu_hosts]
+gpu_156 ansible_host=192.168.20.156 ansible_user=ansible
+gpu_170 ansible_host=192.168.20.170 ansible_user=ansible
+
+[cpu_hosts]

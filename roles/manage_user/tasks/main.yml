@@ -1,0 +1,6 @@
+- name: Manage user account
+  user:
+    name: "{{ username }}"
+    uid: "{{ uid }}"
+    state: "{{ user_state | default('present') }}" # present or absent, absent to disable/delete user
+  become: true # true to run as root

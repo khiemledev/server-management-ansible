@@ -1,0 +1,4 @@
+- name: Run a script on all hosts
+  hosts: gpu_hosts
+  roles:
+    - run_script
