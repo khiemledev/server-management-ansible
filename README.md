@@ -122,7 +122,15 @@ ansible-playbook playbooks/run_script.yml
 
 ```bash
 ansible-playbook playbooks/create_gpu_account.yml \
+    -e hosts=<hosts_in_inventory> \
     -e username=<username> \
     -e uid=<uid> \
+    -e user_state=present # or absent to delete user
+
+# Example
+ansible-playbook playbooks/create_gpu_account.yml \
+    -e hosts=gpu_hosts \
+    -e username=khiemle2409 \
+    -e uid=1111 \
     -e user_state=present # or absent to delete user
 ```
