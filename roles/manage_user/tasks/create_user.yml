@@ -1,0 +1,31 @@
+- name: Ensure the salt variable has a default value
+  set_fact:
+    salt: "{{ salt | default('mysalt') }}"
+
+- name: Hash the password with a salt
+  set_fact:
+    hashed_password: "{{ plain_password | password_hash('sha512', salt) }}"
+
+- name: Create user with hashed password
+  user:
+    name: "{{ username }}"
+    uid: "{{ uid }}"
+    password: "{{ hashed_password }}"
+    create_home: true
+    state: present
+    shell: /bin/bash
+  become: true # true to run as root
+
+
+- name: Copy .bashrc from /etc/skel to user's home directory
+  copy:
+    src: "{{ item }}"
+    remote_src: true
+    dest: "/home/{{ username }}/"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
+  with_items:
+    - "/etc/skel/.bashrc"
+    - "/etc/skel/.profile"
+  become: true

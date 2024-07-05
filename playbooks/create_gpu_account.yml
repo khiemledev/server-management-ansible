@@ -1,4 +1,0 @@
-- name: Create user on all GPU hosts
-  hosts: "{{ hosts }}" 
-  roles:
-    - role: manage_user 

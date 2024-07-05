@@ -1,0 +1,5 @@
+- name: Delete user with username
+  user:
+    name: "{{ username }}"
+    state: absent
+  become: true # true to run as root

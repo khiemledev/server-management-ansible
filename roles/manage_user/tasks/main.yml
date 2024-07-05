@@ -1,6 +1,11 @@
-- name: Manage user account
-  user:
-    name: "{{ username }}"
-    uid: "{{ uid }}"
-    state: "{{ user_state | default('present') }}" # present or absent, absent to disable/delete user
-  become: true # true to run as root
+- name: Create user
+  include_tasks: create_user.yml
+  when: user_action == 'create'
+
+- name: Update user password
+  include_tasks: change_password.yml
+  when: user_action == 'update_password'
+
+- name: Delete user
+  include_tasks: delete_user.yml
+  when: user_action == 'delete'

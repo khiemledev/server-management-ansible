@@ -113,24 +113,38 @@ gpu_170 ansible_host=192.168.20.170 ansible_user=ansible
 Finally, test the playbook by running a script on the hosts:
 
 ```bash
+# Ping the hosts
+ansible my_hosts -m ping -i inventory.ini
+
+# Run a test playbook
 ansible-playbook playbooks/run_script.yml
 ```
 
 ## Run the playbook
 
-### Create user on multiple hosts
+### Manage user on multiple hosts
 
 ```bash
-ansible-playbook playbooks/create_gpu_account.yml \
-    -e hosts=<hosts_in_inventory> \
+# Create user
+ansible-playbook playbooks/manage_account.yml \
+    -e target_hosts=<hosts_in_inventory> \
     -e username=<username> \
     -e uid=<uid> \
-    -e user_state=present # or absent to delete user
+    -e plain_password=<plain_password> \
+    -e salt=<salt> \ # this is optional
+    -e user_action=create
 
-# Example
-ansible-playbook playbooks/create_gpu_account.yml \
-    -e hosts=gpu_hosts \
-    -e username=khiemle2409 \
-    -e uid=1111 \
-    -e user_state=present # or absent to delete user
+# Update password 
+ansible-playbook playbooks/manage_account.yml \
+    -e target_hosts=<hosts_in_inventory> \
+    -e username=<username> \
+    -e plain_password=<plain_password> \
+    -e salt=<salt> \
+    -e user_action=update_password
+
+# Delete user
+ansible-playbook playbooks/manage_account.yml \
+    -e target_hosts=<hosts_in_inventory> \
+    -e username=<username> \
+    -e user_action=delete
 ```

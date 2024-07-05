@@ -1,0 +1,4 @@
+- name: Manage account on hosts
+  hosts: "{{ target_hosts }}" 
+  roles:
+    - role: manage_user 
